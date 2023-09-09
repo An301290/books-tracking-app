@@ -3,6 +3,7 @@ import BookShelfChanger from "./BookShelfChanger";
 
 export interface Book {
   title: string;
+  id: string;
   authors: string[];
   imageLinks: {
     smallThumbnail: string;
