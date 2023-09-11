@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BookShelfChanger from "./BookShelfChanger";
 
 export interface Book {
@@ -20,12 +20,15 @@ interface SearchBoxProps {
   showSearchPage: boolean;
   setShowSearchpage: (value: boolean) => void;
   books: Book[];
+  onUpdateShelf: (bookId: string, newShelf: string) => void;
+
 }
 
 const SearchBook = ({
   showSearchPage,
   setShowSearchpage,
   books,
+  onUpdateShelf
 }: SearchBoxProps) => {
   const [query, setQuery] = useState("");
 
@@ -73,7 +76,10 @@ const SearchBook = ({
                       backgroundImage: `url(${showingBook.imageLinks.smallThumbnail})`,
                     }}
                   ></div>
-                  <BookShelfChanger books={books} />
+                  <BookShelfChanger
+                    books={books}
+                    onUpdateShelf={onUpdateShelf}
+                  />
                 </div>
                 <div className="book-title">{showingBook.title}</div>
                 <div className="book-authors">{showingBook.authors}</div>

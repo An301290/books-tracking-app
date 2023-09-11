@@ -3,17 +3,20 @@ import { Book } from "./SearchBook";
 
 interface SelfChangerProps {
   books: Book[];
+  onUpdateShelf: (bookId: string, newShelf: string) => void;
 }
 
-const BookShelfChanger = ({ books }: SelfChangerProps) => {
+const BookShelfChanger = ({ books, onUpdateShelf }: SelfChangerProps) => {
   const [selectedShelf, setSelectedShelf] = useState<string>("");
-  const handleShelfChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+
+  const handleShelfChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+    bookId: string
+  ) => {
     const newValue = event.target.value;
     setSelectedShelf(newValue);
     console.log("Im the shelter", books);
-
-    // Add additional logic here to update the shelf value for the book in your data
-    // Call a function to update the book's shelf in your parent component
+    onUpdateShelf(bookId, newValue);
   };
 
   return (
@@ -21,8 +24,8 @@ const BookShelfChanger = ({ books }: SelfChangerProps) => {
       {books.map((showingShelf) => (
         <select
           key={showingShelf.title}
-          onChange={handleShelfChange}
-          value={showingShelf.shelf}
+          onChange={(e) => handleShelfChange(e, showingShelf.id)}
+          value={selectedShelf}
         >
           <option value="none" disabled>
             Move to...

@@ -1,12 +1,19 @@
 import React from "react";
 import { Book } from "../SearchBook";
+import BookShelfChanger from "../BookShelfChanger";
 
 interface CurrentlyReadingProps {
   books: Book[];
   nameOfShelf: string;
+  onUpdateShelf: (bookId: string, newShelf: string) => void;
+
 }
 
-const ShowShelf = ({ books, nameOfShelf }: CurrentlyReadingProps) => {
+const ShowShelf = ({
+  books,
+  nameOfShelf,
+  onUpdateShelf
+}: CurrentlyReadingProps) => {
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{nameOfShelf}</h2>
@@ -14,7 +21,7 @@ const ShowShelf = ({ books, nameOfShelf }: CurrentlyReadingProps) => {
         <ol className="books-grid">
           {books.map((book) => {
             return (
-              <li>
+              <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
                     <div
@@ -25,7 +32,7 @@ const ShowShelf = ({ books, nameOfShelf }: CurrentlyReadingProps) => {
                         backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
                       }}
                     ></div>
-                    {/* <BookShelfChanger /> */}
+                    <BookShelfChanger books={books} onUpdateShelf={onUpdateShelf} />
                   </div>
                   <div className="book-title">{book.title}</div>
                   <div className="book-authors">{book.authors}</div>

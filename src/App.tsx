@@ -4,10 +4,12 @@ import * as BooksAPI from "./utils/BooksAPI";
 import SearchBook from "./components/SearchBook";
 import BookShelfDashBoard from "./components/bookShelf/BookShelfDashBoard";
 import AddButton from "./components/AddButton";
+import { Book } from "./components/SearchBook";
 
 function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<Book[]>([]);
+
   // first console log
   // when i click on a book, I want to know its id,I want to know the status I have clicked on,
   //and change the value of the shelf status for this book in the books state and set the new state with the new value
@@ -22,9 +24,13 @@ function App() {
     getBooks();
   }, []);
 
-  const handleChangeShelf = (book: {}, bookStage: string) => {
-    console.log(book);
-    console.log(bookStage);
+  const onUpdateShelf = (bookId: string, newShelf: string) => {
+    const updatedBooks = [...books];
+    const bookIndex = updatedBooks.findIndex((book) => book.id === bookId);
+    if (bookIndex !== -1) {
+      updatedBooks[bookIndex].shelf = newShelf;
+      setBooks(updatedBooks);
+    }
   };
 
   return (
@@ -34,9 +40,10 @@ function App() {
           showSearchPage={showSearchPage}
           setShowSearchpage={setShowSearchpage}
           books={books}
+          onUpdateShelf={onUpdateShelf}
         />
       ) : (
-        <BookShelfDashBoard books={books} />
+        <BookShelfDashBoard books={books} onUpdateShelf={onUpdateShelf} />
       )}
       <AddButton
         showSearchPage={showSearchPage}

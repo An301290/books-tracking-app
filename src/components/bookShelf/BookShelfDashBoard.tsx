@@ -4,10 +4,13 @@ import { Book } from "../SearchBook";
 
 export interface ShelfDashBoardProps {
   books: Book[];
+  onUpdateShelf: (bookId: string, newShelf: string) => void;
 }
 
-
-const BookShelfDashBoard = ({ books }: ShelfDashBoardProps) => {
+const BookShelfDashBoard = ({
+  books,
+  onUpdateShelf
+}: ShelfDashBoardProps) => {
   const shelves = [
     { shelf: "currentlyReading", nameOfShelf: "Currently Reading" },
     { shelf: "wantToRead", nameOfShelf: "Want to Read" },
@@ -22,11 +25,13 @@ const BookShelfDashBoard = ({ books }: ShelfDashBoardProps) => {
         <div className="list-books-content">
           <div>
             {shelves.map((shelf) => {
-              console.log(shelf);
+              // console.log(shelf);
               return (
                 <ShowShelf
+                  key={shelf.shelf}
                   books={books.filter((book) => book.shelf === shelf.shelf)}
                   nameOfShelf={shelf.nameOfShelf}
+                  onUpdateShelf={onUpdateShelf}
                 />
               );
             })}
