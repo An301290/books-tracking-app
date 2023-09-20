@@ -20,7 +20,7 @@ interface SearchBoxProps {
   showSearchPage: boolean;
   setShowSearchpage: (value: boolean) => void;
   books: Book[];
-  onUpdateShelf: (bookId: string, newShelf: string) => void;
+  onUpdateShelf:(bookId: string, newShelf: string) => void;
 
 }
 

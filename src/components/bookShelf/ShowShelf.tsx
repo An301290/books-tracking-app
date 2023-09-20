@@ -6,13 +6,12 @@ interface CurrentlyReadingProps {
   books: Book[];
   nameOfShelf: string;
   onUpdateShelf: (bookId: string, newShelf: string) => void;
-
 }
 
 const ShowShelf = ({
   books,
   nameOfShelf,
-  onUpdateShelf
+  onUpdateShelf,
 }: CurrentlyReadingProps) => {
   return (
     <div className="bookshelf">
@@ -32,7 +31,10 @@ const ShowShelf = ({
                         backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
                       }}
                     ></div>
-                    <BookShelfChanger books={books} onUpdateShelf={onUpdateShelf} />
+                    <BookShelfChanger
+                      books={books}
+                      onUpdateShelf={onUpdateShelf}
+                    />
                   </div>
                   <div className="book-title">{book.title}</div>
                   <div className="book-authors">{book.authors}</div>

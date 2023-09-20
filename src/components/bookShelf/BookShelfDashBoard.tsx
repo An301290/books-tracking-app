@@ -7,10 +7,7 @@ export interface ShelfDashBoardProps {
   onUpdateShelf: (bookId: string, newShelf: string) => void;
 }
 
-const BookShelfDashBoard = ({
-  books,
-  onUpdateShelf
-}: ShelfDashBoardProps) => {
+const BookShelfDashBoard = ({ books, onUpdateShelf }: ShelfDashBoardProps) => {
   const shelves = [
     { shelf: "currentlyReading", nameOfShelf: "Currently Reading" },
     { shelf: "wantToRead", nameOfShelf: "Want to Read" },
@@ -25,7 +22,6 @@ const BookShelfDashBoard = ({
         <div className="list-books-content">
           <div>
             {shelves.map((shelf) => {
-              // console.log(shelf);
               return (
                 <ShowShelf
                   key={shelf.shelf}
